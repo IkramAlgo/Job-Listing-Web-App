@@ -1,7 +1,11 @@
+Here is the **updated and properly formatted `README.md` file** for your GitHub project:
+
+---
+
 ````markdown
 # 💼 Job Listing Web App
 
-A **full-stack job listing platform** built with a **Flask backend** and a **React + TypeScript frontend**. Users can browse, filter, sort, add, and delete job listings through a clean and responsive UI.
+A **full-stack job listing platform** built with a **Flask backend** and a **React + TypeScript frontend**. Users can browse, filter, sort, add, and delete job listings through a responsive UI.
 
 ---
 
@@ -19,15 +23,15 @@ A **full-stack job listing platform** built with a **Flask backend** and a **Rea
 
 ---
 
-## 📃 Project Overview
+## 📁 Project Overview
 
-This application allows users to:
+This application provides a job listing platform with:
 
-- Browse job listings with filters (location, type, tags)
-- Sort jobs by date and company name
-- Paginate through jobs
-- Add and delete job listings
-- Use a mobile-responsive, user-friendly interface
+- Job browsing with filters (location, job type, tags)  
+- Sorting options (date posted, company name)  
+- Pagination support  
+- Job creation and deletion functionality  
+- Responsive and user-friendly UI  
 
 ---
 
@@ -35,36 +39,36 @@ This application allows users to:
 
 ### 🔧 Backend Setup
 
-**Prerequisites:**
-- Python 3.8+
-- PostgreSQL
-- `pip` or `conda` for package management
+1. **Prerequisites:**
+   - Python 3.8+  
+   - PostgreSQL  
+   - `pip` or `conda`
 
-1. **Clone the repo and navigate to the backend:**
+2. **Clone and navigate:**
    ```bash
    git clone https://github.com/IkramAlgo/Job-Listing-Web-App.git
-   cd Job-Listing-Web-App/backend
+   cd backend
 ````
 
-2. **Create and activate a virtual environment:**
+3. **Create and activate virtual environment:**
 
    ```bash
    conda create --name job-app python=3.8 -y
    conda activate job-app
    ```
 
-3. **Install dependencies:**
+4. **Install dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Set up the PostgreSQL database:**
+5. **Configure PostgreSQL:**
 
    * Create a database named `job_app_db`
-   * Update credentials in `app.py` if needed
+   * Update credentials in `app.py`
 
-5. **Run migrations and start the server:**
+6. **Run migrations & start server:**
 
    ```bash
    flask db init
@@ -73,120 +77,119 @@ This application allows users to:
    flask run
    ```
 
-   Backend will run at: `http://127.0.0.1:5000`
+API will be available at `http://127.0.0.1:5000`
 
 ---
 
-### 🖥️ Frontend Setup
+### 💻 Frontend Setup
 
-**Prerequisites:**
-
-* Node.js & npm
-
-1. **Navigate to the frontend:**
+1. **Navigate to frontend folder:**
 
    ```bash
-   cd ../frontend
+   cd frontend
    ```
 
-2. **Install dependencies:**
+2. **Install frontend dependencies:**
 
    ```bash
    npm install
    ```
 
-3. **Start the React development server:**
+3. **Start development server:**
 
    ```bash
    npm run dev
    ```
 
-   Frontend will run at: `http://localhost:5173`
+Frontend will be available at `http://localhost:5173`
 
-4. **API Configuration:**
-
-   * Ensure API requests in frontend point to `http://127.0.0.1:5000`
+4. **Check API URL Configuration:**
+   Ensure frontend uses the correct backend URL (`http://127.0.0.1:5000`)
 
 ---
 
-## 📁 Project Structure
+## 🧱 Project Structure
 
 ```
-Job-Listing-Web-App/
-├── backend/
-│   ├── app.py
-│   ├── requirements.txt
-│   └── migrations/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── JobCard.tsx
-│   │   ├── JobsPage.tsx
-│   │   └── ...
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vite.config.ts
+backend/
+├── app.py
+├── requirements.txt
+├── migrations/
+
+frontend/
+├── public/
 │   └── index.html
-└── README.md
+├── src/
+│   ├── JobCard.tsx
+│   ├── JobsPage.tsx
+│   ├── index.tsx
+│   └── ...
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
 ```
 
 ---
 
 ## 🛠️ Technology Stack
 
-### 🔙 Backend
+* **Backend:**
 
-* **Flask** (Python)
-* **SQLAlchemy + PostgreSQL**
-* **Flask-Migrate** for database migrations
-* **Flask-CORS** for cross-origin access
+  * Flask + Flask-CORS
+  * SQLAlchemy + PostgreSQL
+  * Flask-Migrate
 
-### 🔜 Frontend
+* **Frontend:**
 
-* **React** with **TypeScript**
-* **React Bootstrap** for responsive components
-* **Heroicons** for icons
-* **Vite** for fast build tooling
-* **Fetch API** for communication
+  * React + TypeScript
+  * React Bootstrap
+  * Heroicons
+  * Vite
 
 ---
 
-## ⚡ Assumptions & Shortcuts
+## ⚠️ Assumptions & Shortcuts
 
-* No user authentication (open job add/delete)
-* Tags are stored as arrays and filtered by exact match
-* Basic error handling and validations
-* Frontend and backend must run locally
-* No job scraper included (can be added later)
-
----
-
-## ✨ Features
-
-* **Job Listing:** Paginated and filterable list of jobs
-* **Filters:** Filter jobs by location, job type, and tags
-* **Sorting:** Sort by post date or company name
-* **Pagination:** Navigate jobs using previous/next buttons
-* **Add Job:** Create new listings through a form
-* **Delete Job:** Remove jobs with confirmation
-* **Responsive UI:** Works across mobile and desktop
-* **Error States:** Handles loading and network errors
+* No authentication (open access to add/delete)
+* Tags are stored as JSON arrays
+* Minimal error handling
+* No scraping or external job feeds
+* Backend and frontend run locally
 
 ---
 
-## 🧪 How to Use
+## 🚀 Features
 
-1. Start both frontend and backend servers
-2. Open `http://localhost:5173` in your browser
-3. Use filters to search for specific jobs
-4. Add new jobs via the form at the bottom
-5. Delete jobs with the red button
-6. Use pagination to view more listings
+* Filter jobs by **location, job type, tags**
+* Sort by **date posted** or **company name**
+* Add/Delete job listings
+* Pagination support
+* Responsive design for mobile/desktop
+* Visual feedback on loading/error states
 
 ---
 
-### 📫 Contact
+## 📘 How to Use
 
-Feel free to connect or reach out:
-**Ikram Khan**
-[GitHub Profile](https://github.com/IkramAlgo)
+1. Run backend (`http://127.0.0.1:5000`)
+2. Run frontend (`http://localhost:5173`)
+3. Use UI to:
+
+   * Browse, filter, and sort jobs
+   * Add a new job using the form
+   * Delete jobs with the delete button
+   * Use pagination to navigate pages
+
+---
+
+> 📌 **Note:** This is a basic prototype. Authentication, role-based access, and CI/CD deployment can be added in future iterations.
+
+```
+
+---
+
+✅ **Next Step:**
+Save this content as `README.md` in your GitHub repo root directory. GitHub will automatically render it correctly on the repository homepage.
+
+Let me know if you'd like a PDF version or if you'd like help pushing this to GitHub!
+```
