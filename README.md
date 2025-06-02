@@ -26,7 +26,7 @@ A web application that allows users to:
 - View job listings
 - Filter by location, type, and tags
 - Add and delete job entries
-
+- This project includes a web scraper that efficiently extracts up to 100 job listings from the source website, handling pagination and dynamic content loading.
 ---
 
 ## 🔧 Setup Instructions
@@ -97,21 +97,24 @@ Ensure frontend uses the correct backend URL (`http://127.0.0.1:5000`)
 backend/
 ├── app.py
 ├── scraper.py (By using Python Scarper.py you can scarpe 100 jobs)
+├── chromedriver.exe 
 ├── requirements.txt
 ├── migrations/
 
 
 frontend/
 ├── public/
-│   └── index.html
+│   └── vite.svg
 ├── src/
 │   ├── JobCard.tsx
 │   ├── JobsPage.tsx
-│   ├── index.tsx
+│   ├── index.css
+|   ├── main.tsx
 │   └── ...
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
+├── index.html
 ```
 
 ---
