@@ -1,8 +1,4 @@
-Here is the **updated and properly formatted `README.md` file** for your GitHub project:
 
----
-
-````markdown
 # 💼 Job Listing Web App
 
 A **full-stack job listing platform** built with a **Flask backend** and a **React + TypeScript frontend**. Users can browse, filter, sort, add, and delete job listings through a responsive UI.
@@ -180,11 +176,6 @@ frontend/
    * Delete jobs with the delete button
    * Use pagination to navigate pages
 
----
-
-> 📌 **Note:** This is a basic prototype. Authentication, role-based access, and CI/CD deployment can be added in future iterations.
-
-```
 
 ---
 
