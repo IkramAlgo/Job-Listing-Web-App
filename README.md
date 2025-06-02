@@ -136,7 +136,6 @@ frontend/
 - No authentication (open access to add/delete)
 - Tags are stored as JSON arrays
 - Minimal error handling
-- No scraping or external job feeds
 - Backend and frontend run locally
 
 ---
