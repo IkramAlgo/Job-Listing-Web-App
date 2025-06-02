@@ -1,176 +1,192 @@
-```markdown
-# Job Listing Application
+````markdown
+# 💼 Job Listing Web App
 
-This is a full-stack job listing application featuring a Flask backend API and a React frontend with a responsive UI. The app allows users to browse, filter, sort, add, and delete job listings.
-
----
-
-## Table of Contents
-
-1. Project Overview
-2. Setup and Run Instructions
-   - Backend Setup
-   - Frontend Setup
-3. Project Structure
-4. Technology Decisions
-5. Assumptions and Shortcuts
-6. Feature
+A **full-stack job listing platform** built with a **Flask backend** and a **React + TypeScript frontend**. Users can browse, filter, sort, add, and delete job listings through a clean and responsive UI.
 
 ---
 
-## Project Overview
+## 📌 Table of Contents
 
-This application provides a job listing platform with:
-
-- Job browsing with filters (location, job type, tags)
-- Sorting options (date posted, company name)
-- Pagination support
-- Job creation and deletion functionality
-- Responsive and user-friendly UI
+1. [Project Overview](#project-overview)  
+2. [Setup Instructions](#setup-instructions)  
+   - [Backend Setup](#backend-setup)  
+   - [Frontend Setup](#frontend-setup)  
+3. [Project Structure](#project-structure)  
+4. [Technology Stack](#technology-stack)  
+5. [Assumptions & Shortcuts](#assumptions--shortcuts)  
+6. [Features](#features)  
+7. [How to Use](#how-to-use)
 
 ---
 
-## Setup and Run Instructions
+## 📃 Project Overview
 
-### Backend Setup
+This application allows users to:
 
-1. **Prerequisites:**  
-   - Python 3.8+  
-   - PostgreSQL installed and running  
-   - `pip` for package management
+- Browse job listings with filters (location, type, tags)
+- Sort jobs by date and company name
+- Paginate through jobs
+- Add and delete job listings
+- Use a mobile-responsive, user-friendly interface
 
-2. **Clone the repository and navigate to backend folder:**  
-   ```
-   git clone 
-   cd backend
+---
+
+## ⚙️ Setup Instructions
+
+### 🔧 Backend Setup
+
+**Prerequisites:**
+- Python 3.8+
+- PostgreSQL
+- `pip` or `conda` for package management
+
+1. **Clone the repo and navigate to the backend:**
+   ```bash
+   git clone https://github.com/IkramAlgo/Job-Listing-Web-App.git
+   cd Job-Listing-Web-App/backend
+````
+
+2. **Create and activate a virtual environment:**
+
+   ```bash
+   conda create --name job-app python=3.8 -y
+   conda activate job-app
    ```
 
-3. **Create and activate a virtual environment:**  
-   ```
-   conda create -m job-app -y
-   conda activate job-app     # Windows
-   ```
+3. **Install dependencies:**
 
-4. **Install dependencies:**  
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
-5. **Configure PostgreSQL database:**  
-   - Create a database named `job_app_db` (or update config).  
-   - Update database credentials in `app.py` if necessary.
+4. **Set up the PostgreSQL database:**
 
-6. **Run migrations and start the server:**  
-   ```
+   * Create a database named `job_app_db`
+   * Update credentials in `app.py` if needed
+
+5. **Run migrations and start the server:**
+
+   ```bash
    flask db init
    flask db migrate
    flask db upgrade
    flask run
    ```
-   Backend API will run at `http://127.0.0.1:5000`.
+
+   Backend will run at: `http://127.0.0.1:5000`
 
 ---
 
-### Frontend Setup
+### 🖥️ Frontend Setup
 
-1. **Prerequisites:**  
-   - Node.js and npm installed
+**Prerequisites:**
 
-2. **Navigate to frontend folder:**  
-   ```
-   cd frontend
+* Node.js & npm
+
+1. **Navigate to the frontend:**
+
+   ```bash
+   cd ../frontend
    ```
 
-3. **Install dependencies:**  
-   ```
+2. **Install dependencies:**
+
+   ```bash
    npm install
    ```
 
-4. **Start the React development server:**  
-   ```
-   npm start
-   ```
-   Frontend will be available at `http://localhost:3000`.
+3. **Start the React development server:**
 
-5. **API URL Configuration:**  
-   - Ensure the frontend API calls point to the backend URL (`http://127.0.0.1:5000`).  
-   - Adjust if backend runs on a different host or port.
+   ```bash
+   npm run dev
+   ```
+
+   Frontend will run at: `http://localhost:5173`
+
+4. **API Configuration:**
+
+   * Ensure API requests in frontend point to `http://127.0.0.1:5000`
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-backend/
-├── app.py                  # Flask backend application with API routes
-├── requirements.txt        # Python dependencies
-├── migrations/             # Database migration files
-
-frontend/
-├── public/
-│   └── index.html          # React app root HTML
-├── src/
-│   ├── JobCard.tsx         # Reusable job card component
-│   ├── JobsPage.tsx        # Main page with listing, filters, add & delete
-│   ├── index.tsx           # React entry point
-│   ├── index.css           # Global styles
-│   └── ...                 # Other React files and assets
-├── package.json            # npm dependencies and scripts
-├── tsconfig.json           # TypeScript configuration
-├── vite.config.ts          # Vite build config
-├── .gitignore              # Git ignore file
-├── README.md               # Project documentation
+Job-Listing-Web-App/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── migrations/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── JobCard.tsx
+│   │   ├── JobsPage.tsx
+│   │   └── ...
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── vite.config.ts
+│   └── index.html
+└── README.md
 ```
 
 ---
 
-## Technology Decisions
+## 🛠️ Technology Stack
 
-- **Backend:**  
-  - Flask for lightweight REST API  
-  - SQLAlchemy ORM with PostgreSQL database  
-  - Flask-Migrate for database migrations  
-  - Flask-CORS to allow frontend access
+### 🔙 Backend
 
-- **Frontend:**  
-  - React with TypeScript for type safety  
-  - React Bootstrap for responsive UI components  
-  - Heroicons for consistent iconography  
-  - Fetch API for backend communication
+* **Flask** (Python)
+* **SQLAlchemy + PostgreSQL**
+* **Flask-Migrate** for database migrations
+* **Flask-CORS** for cross-origin access
 
-- **Styling:**  
-  - Bootstrap grid and utilities for responsiveness  
-  - Custom CSS for hover effects and icon sizing
+### 🔜 Frontend
 
----
-
-## Assumptions and Shortcuts
-
-- No user authentication implemented (open access for adding/deleting jobs)  
-- Tags stored as JSON arrays in the database, filtering matches exact tags  
-- Basic error handling and validation; can be extended  
-- Backend and frontend run locally with CORS enabled  
-- No scraper included in this setup (optional)
+* **React** with **TypeScript**
+* **React Bootstrap** for responsive components
+* **Heroicons** for icons
+* **Vite** for fast build tooling
+* **Fetch API** for communication
 
 ---
 
-## Features
+## ⚡ Assumptions & Shortcuts
 
-- **Job Listing:** Paginated, filterable, and sortable job listings  
-- **Filters:** Location, job type, and tags (comma separated)  
-- **Sorting:** By posting date (newest/oldest) and company name (A-Z, Z-A)  
-- **Pagination:** Navigate through pages of job listings  
-- **Add Job:** Form to create new job listings with validation  
-- **Delete Job:** Remove jobs with confirmation  
-- **Responsive UI:** Works well on desktop and mobile devices  
-- **Loading and Error States:** User feedback during data fetch and errors
+* No user authentication (open job add/delete)
+* Tags are stored as arrays and filtered by exact match
+* Basic error handling and validations
+* Frontend and backend must run locally
+* No job scraper included (can be added later)
 
 ---
 
-## How to Use
+## ✨ Features
 
-- Visit the frontend URL (`http://localhost:5173/`)  
-- Use filters and sorting dropdown to browse jobs  
-- Add a new job using the form at the bottom  
-- Delete jobs using the red delete button on each job card  
-- Navigate pages using Previous/Next buttons
+* **Job Listing:** Paginated and filterable list of jobs
+* **Filters:** Filter jobs by location, job type, and tags
+* **Sorting:** Sort by post date or company name
+* **Pagination:** Navigate jobs using previous/next buttons
+* **Add Job:** Create new listings through a form
+* **Delete Job:** Remove jobs with confirmation
+* **Responsive UI:** Works across mobile and desktop
+* **Error States:** Handles loading and network errors
+
+---
+
+## 🧪 How to Use
+
+1. Start both frontend and backend servers
+2. Open `http://localhost:5173` in your browser
+3. Use filters to search for specific jobs
+4. Add new jobs via the form at the bottom
+5. Delete jobs with the red button
+6. Use pagination to view more listings
+
+---
+
+### 📫 Contact
+
+Feel free to connect or reach out:
+**Ikram Khan**
+[GitHub Profile](https://github.com/IkramAlgo)
