@@ -7,14 +7,14 @@ This is a full-stack job listing application featuring a Flask backend API and a
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Setup and Run Instructions](#setup-and-run-instructions)
-   - [Backend Setup](#backend-setup)
-   - [Frontend Setup](#frontend-setup)
-3. [Project Structure](#project-structure)
-4. [Technology Decisions](#technology-decisions)
-5. [Assumptions and Shortcuts](#assumptions-and-shortcuts)
-6. [Features](#features) 
+1. Project Overview
+2. Setup and Run Instructions
+   - Backend Setup
+   - Frontend Setup
+3. Project Structure
+4. Technology Decisions
+5. Assumptions and Shortcuts
+6. Feature
 
 ---
 
