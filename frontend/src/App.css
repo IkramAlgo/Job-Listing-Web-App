@@ -5,6 +5,31 @@
   text-align: center;
 }
 
+.hover-shadow:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+  color: #6c757d; /* Bootstrap muted gray */
+  vertical-align: middle;
+}
+
+.icon-size {
+  width: 1em;
+  height: 1em;
+  min-width: 16px;
+  min-height: 16px;
+  max-width: 20px;
+  max-height: 20px;
+  color: #6c757d;
+  vertical-align: middle;
+}
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;

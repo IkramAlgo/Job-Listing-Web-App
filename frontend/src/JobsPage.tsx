@@ -1,63 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Form, Badge, Spinner, InputGroup } from 'react-bootstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  Spinner,
+} from 'react-bootstrap';
+import JobCard from './JobCard'; // Adjust the path as needed
 
-const JobCard = ({ job, onDelete }) => (
-  <Card className="mb-4 shadow-sm">
-    <Card.Body>
-      <Button
-        variant="danger"
-        size="sm"
-        className="position-absolute top-0 end-0 m-2"
-        onClick={() => onDelete(job.id)}
-        title="Delete Job"
-      >
-        &times;
-      </Button>
-      <Row className="align-items-center mb-3">
-        <Col xs={2} md={1}>
-          <img
-            src={job.logo || `https://ui-avatars.com/api/?name=${encodeURIComponent(job.company)}`}
-            alt={job.company}
-            className="img-fluid rounded-circle"
-          />
-        </Col>
-        <Col>
-          <Card.Title className="mb-0">{job.title}</Card.Title>
-          <Card.Subtitle className="text-muted">{job.company}</Card.Subtitle>
-        </Col>
-      </Row>
-      <Card.Text>
-        <div>
-          <strong>Location:</strong> {job.location || 'N/A'}
-        </div>
-        {job.salary && (
-          <div>
-            <strong>Salary:</strong> {job.salary}
-          </div>
-        )}
-        <div className="mt-2">
-          {job.tags?.map((tag, idx) => (
-            <Badge bg="primary" className="me-1" key={idx}>
-              {tag}
-            </Badge>
-          ))}
-        </div>
-      </Card.Text>
-      <Card.Footer className="text-muted text-end">
-        Posted: {job.posting_date ? new Date(job.posting_date).toLocaleDateString() : 'N/A'}
-      </Card.Footer>
-    </Card.Body>
-  </Card>
-);
+interface Job {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  salary?: string;
+  tags: string[];
+  posting_date?: string;
+  job_type?: string | null;
+  logo?: string | null;
+}
 
-const JobsPage = () => {
-  const [jobs, setJobs] = useState([]);
+const JobsPage: React.FC = () => {
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Filters
   const [locationFilter, setLocationFilter] = useState('');
   const [jobTypeFilter, setJobTypeFilter] = useState('');
   const [tagsFilter, setTagsFilter] = useState('');
+  const [sort, setSort] = useState('');
 
   // Pagination
   const [page, setPage] = useState(1);
@@ -77,6 +51,7 @@ const JobsPage = () => {
 
   const fetchJobs = async () => {
     setLoading(true);
+    setError(null);
     try {
       const params = new URLSearchParams();
       params.append('page', page.toString());
@@ -84,23 +59,25 @@ const JobsPage = () => {
       if (locationFilter) params.append('location', locationFilter);
       if (jobTypeFilter) params.append('job_type', jobTypeFilter);
       if (tagsFilter) params.append('tags', tagsFilter);
+      if (sort) params.append('sort', sort);
 
       const res = await fetch(`http://127.0.0.1:5000/jobs?${params.toString()}`);
+      if (!res.ok) throw new Error('Failed to fetch jobs');
       const data = await res.json();
       setJobs(data.jobs);
       setPages(data.pages);
     } catch (error) {
-      console.error('Error fetching jobs:', error);
+      setError('Failed to load jobs. Please try again.');
     }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchJobs();
-    // eslint-disable-next-line
-  }, [page, locationFilter, jobTypeFilter, tagsFilter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, locationFilter, jobTypeFilter, tagsFilter, sort]);
 
-  const handleAddJob = async (e) => {
+  const handleAddJob = async (e: React.FormEvent) => {
     e.preventDefault();
     const jobToAdd = {
       ...newJob,
@@ -120,11 +97,10 @@ const JobsPage = () => {
       }
     } catch (error) {
       alert('Error adding job');
-      console.error(error);
     }
   };
 
-  const handleDeleteJob = async (id) => {
+  const handleDeleteJob = async (id: number) => {
     if (!window.confirm('Are you sure you want to delete this job?')) return;
     try {
       const res = await fetch(`http://127.0.0.1:5000/jobs/${id}`, { method: 'DELETE' });
@@ -132,8 +108,15 @@ const JobsPage = () => {
       else alert('Failed to delete job');
     } catch (error) {
       alert('Error deleting job');
-      console.error(error);
     }
+  };
+
+  const clearFilters = () => {
+    setLocationFilter('');
+    setJobTypeFilter('');
+    setTagsFilter('');
+    setSort('');
+    setPage(1);
   };
 
   return (
@@ -146,33 +129,49 @@ const JobsPage = () => {
           <Form.Control
             placeholder="Filter by location"
             value={locationFilter}
-            onChange={(e) => setLocationFilter(e.target.value)}
+            onChange={(e) => {
+              setLocationFilter(e.target.value);
+              setPage(1);
+            }}
           />
         </Col>
         <Col xs={12} sm={6} md={3}>
           <Form.Control
             placeholder="Filter by job type"
             value={jobTypeFilter}
-            onChange={(e) => setJobTypeFilter(e.target.value)}
+            onChange={(e) => {
+              setJobTypeFilter(e.target.value);
+              setPage(1);
+            }}
           />
         </Col>
-        <Col xs={12} sm={12} md={4}>
+        <Col xs={12} sm={12} md={3}>
           <Form.Control
             placeholder="Filter by tags (comma separated)"
             value={tagsFilter}
-            onChange={(e) => setTagsFilter(e.target.value)}
+            onChange={(e) => {
+              setTagsFilter(e.target.value);
+              setPage(1);
+            }}
           />
         </Col>
-        <Col xs="auto">
-          <Button
-            variant="outline-danger"
-            onClick={() => {
-              setLocationFilter('');
-              setJobTypeFilter('');
-              setTagsFilter('');
+        <Col xs={12} sm={6} md={3}>
+          <Form.Select
+            value={sort}
+            onChange={(e) => {
+              setSort(e.target.value);
               setPage(1);
             }}
           >
+            <option value="">Sort by</option>
+            <option value="date_desc">Newest</option>
+            <option value="date_asc">Oldest</option>
+            <option value="company_asc">Company A-Z</option>
+            <option value="company_desc">Company Z-A</option>
+          </Form.Select>
+        </Col>
+        <Col xs="auto">
+          <Button variant="outline-danger" onClick={clearFilters}>
             Clear Filters
           </Button>
         </Col>
@@ -245,6 +244,8 @@ const JobsPage = () => {
         <div className="text-center">
           <Spinner animation="border" />
         </div>
+      ) : error ? (
+        <p className="text-center text-danger">{error}</p>
       ) : jobs.length === 0 ? (
         <p className="text-center">No jobs found.</p>
       ) : (

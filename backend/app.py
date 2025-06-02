@@ -4,7 +4,6 @@ from flask_cors import CORS
 from datetime import datetime
 from flask_migrate import Migrate
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -17,7 +16,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 
 class Job(db.Model):
     __tablename__ = 'jobs'
@@ -47,12 +45,11 @@ def index():
 
 @app.route('/jobs', methods=['GET'])
 def get_jobs():
-    # Filtering query parameters
     location = request.args.get('location')
     job_type = request.args.get('job_type')
-    tags = request.args.getlist('tags')  # ?tags=python&tags=flask
+    tags = request.args.getlist('tags')
+    sort = request.args.get('sort')
 
-    # Pagination parameters
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 10, type=int)
 
@@ -63,19 +60,30 @@ def get_jobs():
     if job_type:
         query = query.filter(Job.job_type.ilike(f'%{job_type}%'))
     if tags:
-        # Filter jobs that contain all tags requested
         for tag in tags:
             query = query.filter(Job.tags.contains([tag]))
 
-    pagination = query.order_by(Job.posting_date.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    # Sorting logic
+    if sort == 'date_desc':
+        query = query.order_by(Job.posting_date.desc())
+    elif sort == 'date_asc':
+        query = query.order_by(Job.posting_date.asc())
+    elif sort == 'company_asc':
+        query = query.order_by(Job.company.asc())
+    elif sort == 'company_desc':
+        query = query.order_by(Job.company.desc())
+    else:
+        query = query.order_by(Job.posting_date.desc())  # default sorting
+
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
     jobs = pagination.items
 
     return jsonify({
         "jobs": [job.to_dict() for job in jobs],
-        "total": pagination.total,
         "page": pagination.page,
+        "pages": pagination.pages,
         "per_page": pagination.per_page,
-        "pages": pagination.pages
+        "total": pagination.total
     })
 
 @app.route('/jobs', methods=['POST'])

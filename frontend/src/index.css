@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,6 +16,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 
 a {
@@ -71,4 +71,26 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.icon-size {
+  width: 1em;
+  height: 1em;
+  min-width: 16px;
+  min-height: 16px;
+  max-width: 20px;
+  max-height: 20px;
+  color: #6c757d;
+  vertical-align: middle;
+}
+
+
+.hover-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.hover-shadow {
+  transition: transform 0.2s, box-shadow 0.2s;
 }
