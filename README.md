@@ -4,6 +4,9 @@
 A **full-stack job listing platform** built with a **Flask backend** and a **React + TypeScript frontend**. Users can browse, filter, and add job listings.
 
 ---
+## 🎥 Project Demo
+
+Watch the demo video [here](https://drive.google.com/file/d/1sFBnU_AAR5NvQigo0HPzHOfb2628wSdM/view?usp=sharing).
 
 ## 📌 Table of Contents
 
